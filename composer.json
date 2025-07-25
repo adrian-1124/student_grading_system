@@ -1,0 +1,16 @@
+{
+    "name": "adrian/gs",
+    "description": "student grading system",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Adrian\\Gs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "adrian"
+        }
+    ],
+    "require": {}
+}
