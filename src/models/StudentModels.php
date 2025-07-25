@@ -1,11 +1,11 @@
 <?php
 
-namespace lirazan\Gs\Models;
+namespace Adrian\Gs\models;
 
-use lirazan\Gs\crud;
-use lirazan\Gs\Database;
+use Adrian\Gs\core\crud;
+use Adrian\Gs\core\Database;
 
-class studentModel extends Database implements Crud{
+class StudentModels extends Database implements Crud{
     public int $id;
     public string $name;
     public string $course;
@@ -14,20 +14,25 @@ class studentModel extends Database implements Crud{
 
     public function __construct()
     {
-        perent::__construct();
-        $this->id="";
+        parent::__construct();
+        $this->id=0;
         $this->name="";
         $this->course="";
-        $this->year_level="";
+        $this->year_level=0;
         $this->section="";
 
     }
 
     public function create(){
-        //create data
-        $query = $this->conn->prepare("INSERT INTO 'student'('ID', 'name','course','year_level','section')");
+        $query = $this->conn->prepare("INSERT INTO `students`(`id`, `name`, `course`, `year_level`, `section`)
+         VALUES ('$this->id','$this->name','$this->course','$this->year_level','$this->section')");
+        if($query->execute()){
+            echo "Student Inserted!!";
 
+        }
+       
     }
+
 
     public function read(){
         try {
@@ -36,15 +41,25 @@ class studentModel extends Database implements Crud{
             return $result->fetch_all(MYSQLI_ASSOC);
         }catch (\Throwable $th) {
             //throw $th;
-            echo $th->getMesseage();
+            echo $th->getMessage();
         }
     }
 
-    public function update(){
-
-    }
-
-    public function delete(){
-
-    }
-}
+    public function update($id){
+        $query = $this->conn->prepare
+        ("UPDATE `students` SET id='$this->id',name='$this->name',course='$this->course',year_level='$this->year_level',section='$this->section'WHERE id = $id");
+        if($query->execute()){
+         echo "Student Updated Succesfully!!\n";
+        }
+         
+       }
+     
+     public function delete($id){
+     
+         
+         $query = $this->conn->prepare("DELETE FROM `students`WHERE id = $id");
+         if($query ->execute()){
+             echo "Student Deleted!!";
+         }
+     }
+ }

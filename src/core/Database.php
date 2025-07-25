@@ -1,6 +1,7 @@
 <?php
 
-namespace lirazan\Gs\core;
+namespace Adrian\Gs\core;
+use mysqli;
 
 class Database {
     protected $conn;
@@ -12,7 +13,7 @@ class Database {
         $user = 'root';
         $pass = '';
         //myqsli connection
-        $this->conn = new \mesqli($host, $user, $pass, $bd,);
+        $this->conn = new mysqli($host, $user, $pass, $bd,);
         if ($this->conn->connect_error) {
             die("Connection failed: ". $this->conn->connect_error);
         }
